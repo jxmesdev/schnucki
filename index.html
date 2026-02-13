@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Valentine's Day 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ───────── Reset & Base ───────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pink-light: #fff0f3;
+      --pink: #ffb3c6;
+      --pink-mid: #ff8fab;
+      --pink-deep: #fb6f92;
+      --rose: #e05780;
+      --burgundy: #89023e;
+      --cream: #fff8f0;
+    }
+
+    html, body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Quicksand', sans-serif;
+      background: var(--pink-light);
+      color: var(--burgundy);
+    }
+
+    /* ───────── Floating Hearts Background ───────── */
+    .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      opacity: 0.15;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(110vh) rotate(0deg) scale(1); opacity: 0; }
+      10%  { opacity: 0.15; }
+      90%  { opacity: 0.15; }
+      100% { transform: translateY(-10vh) rotate(360deg) scale(0.6); opacity: 0; }
+    }
+
+    /* ───────── Slideshow Container ───────── */
+    .slideshow {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      z-index: 1;
+    }
+
+    .slide {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 2rem 2rem 5rem;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      display: flex;
+      pointer-events: auto;
+      animation: fadeSlideIn 0.45s ease forwards;
+    }
+
+    .slide.exit-left {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    @keyframes fadeSlideIn {
+      0%   { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeSlideInReverse {
+      0%   { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide.active.from-prev {
+      animation: fadeSlideInReverse 0.45s ease forwards;
+    }
+
+    /* ───────── Error Message ───────── */
+    .error-msg {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #ffe0e9, #ffc2d1);
+      border: 2px solid var(--pink-deep);
+      color: var(--burgundy);
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-align: center;
+      animation: popIn 0.35s ease;
+    }
+
+    .error-msg.visible {
+      display: flex;
+    }
+
+    .error-msg svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--rose);
+      flex-shrink: 0;
+    }
+
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(0.8); }
+      50%  { transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes cardShake {
+      0%, 100% { transform: translateX(0); }
+      15%      { transform: translateX(-6px) rotate(-0.5deg); }
+      30%      { transform: translateX(5px) rotate(0.5deg); }
+      45%      { transform: translateX(-4px); }
+      60%      { transform: translateX(3px); }
+      75%      { transform: translateX(-2px); }
+    }
+
+    .card.shake {
+      animation: cardShake 0.5s ease;
+    }
+
+    /* ───────── Card ───────── */
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid var(--pink);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(251, 111, 146, 0.18);
+      position: relative;
+    }
+
+    /* Corner roses */
+    .card .corner-rose {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      opacity: 0.35;
+    }
+    .card .corner-rose.tl { top: -12px; left: -12px; transform: rotate(-30deg); }
+    .card .corner-rose.br { bottom: -12px; right: -12px; transform: rotate(150deg); }
+
+    /* ───────── Typography ───────── */
+    .question-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--pink-mid);
+      margin-bottom: 0.75rem;
+    }
+
+    .question-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--burgundy);
+      margin-bottom: 2rem;
+    }
+
+    /* ───────── Intro Card ───────── */
+    .intro-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid var(--pink);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(251, 111, 146, 0.18);
+      position: relative;
+      overflow: visible;
+    }
+
+    .intro-card .corner-rose {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      opacity: 0.35;
+    }
+    .intro-card .corner-rose.tl { top: -12px; left: -12px; transform: rotate(-30deg); }
+    .intro-card .corner-rose.tr { top: -12px; right: -12px; transform: rotate(30deg); }
+    .intro-card .corner-rose.bl { bottom: -12px; left: -12px; transform: rotate(-150deg); }
+    .intro-card .corner-rose.br { bottom: -12px; right: -12px; transform: rotate(150deg); }
+
+    .intro-card h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--burgundy);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+
+    .intro-image {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+    }
+
+    /* ───────── Question Image ───────── */
+    .question-image {
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 1.5rem;
+      object-fit: cover;
+    }
+
+    /* ───────── Answer Options ───────── */
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .answer-option {
+      position: relative;
+    }
+
+    .answer-option input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .answer-option input[type="checkbox"] {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .answer-option label {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1.25rem;
+      border: 2px solid var(--pink);
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-size: 1rem;
+      font-weight: 500;
+      background: var(--cream);
+      text-align: left;
+    }
+
+    .answer-option label:hover {
+      border-color: var(--pink-deep);
+      background: var(--pink-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(251, 111, 146, 0.15);
+    }
+
+    .answer-option input[type="radio"]:checked + label,
+    .answer-option input[type="checkbox"]:checked + label {
+      border-color: var(--rose);
+      background: linear-gradient(135deg, var(--pink-light), #ffe0e9);
+      box-shadow: 0 4px 18px rgba(251, 111, 146, 0.22);
+    }
+
+    /* Custom radio dot */
+    .radio-heart {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+      border: 2px solid var(--pink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+
+    .radio-heart svg {
+      width: 12px;
+      height: 12px;
+      opacity: 0;
+      transform: scale(0.4);
+      transition: all 0.25s ease;
+    }
+
+    .answer-option input[type="radio"]:checked + label .radio-heart,
+    .answer-option input[type="checkbox"]:checked + label .radio-heart {
+      border-color: var(--rose);
+      background: var(--rose);
+    }
+
+    .answer-option input[type="radio"]:checked + label .radio-heart svg,
+    .answer-option input[type="checkbox"]:checked + label .radio-heart svg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ───────── Buttons ───────── */
+    .btn {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.8rem 2.4rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink-deep), var(--rose));
+      color: white;
+      box-shadow: 0 4px 20px rgba(251, 111, 146, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(251, 111, 146, 0.45);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    /* ───────── Progress Dots ───────── */
+    .progress-dots {
+      display: flex;
+      gap: 10px;
+      margin-top: 1.5rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--pink);
+      opacity: 0.35;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .dot:hover {
+      opacity: 0.6;
+      transform: scale(1.15);
+    }
+
+    .dot.active {
+      opacity: 1;
+      background: var(--rose);
+      transform: scale(1.25);
+    }
+
+    .dot.done {
+      opacity: 0.7;
+      background: var(--pink-deep);
+    }
+
+    .dot.locked {
+      cursor: not-allowed;
+      opacity: 0.2;
+    }
+
+    .dot.locked:hover {
+      transform: none;
+      opacity: 0.2;
+    }
+
+    /* ───────── Final Slide ───────── */
+    .final-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid var(--pink);
+      border-radius: 24px;
+      padding: 3.5rem 2.5rem;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(251, 111, 146, 0.18);
+    }
+
+    .final-card .big-heart {
+      margin-bottom: 1.5rem;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.12); }
+    }
+
+    .final-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--burgundy);
+      margin-bottom: 1rem;
+    }
+
+    .final-card p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: var(--rose);
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* ───────── Floating Roses Background ───────── */
+    .floating-rose {
+      position: absolute;
+      opacity: 0.12;
+      animation: floatUpRose linear infinite;
+    }
+
+    @keyframes floatUpRose {
+      0%   { transform: translateY(110vh) rotate(0deg) scale(1); opacity: 0; }
+      10%  { opacity: 0.12; }
+      90%  { opacity: 0.12; }
+      100% { transform: translateY(-10vh) rotate(-180deg) scale(0.5); opacity: 0; }
+    }
+
+    /* ───────── All four corner roses ───────── */
+    .card .corner-rose.tr { top: -12px; right: -12px; transform: rotate(30deg); }
+    .card .corner-rose.bl { bottom: -12px; left: -12px; transform: rotate(-150deg); }
+
+    /* ───────── Heart Divider ───────── */
+    .heart-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 0.5rem 0 1.5rem;
+      opacity: 0.4;
+    }
+
+    .heart-divider .divider-line {
+      width: 50px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--pink-deep), transparent);
+    }
+
+    .heart-divider svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--pink-deep);
+      flex-shrink: 0;
+    }
+
+    /* ───────── Scattered Hearts on Cards ───────── */
+    .card-heart-scatter {
+      position: absolute;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    /* ───────── Rose Garland on Final Card ───────── */
+    .rose-garland {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .rose-garland svg {
+      width: 36px;
+      height: 36px;
+      opacity: 0.5;
+    }
+
+    .rose-garland svg:nth-child(2) { opacity: 0.65; transform: scale(1.1); }
+    .rose-garland svg:nth-child(4) { opacity: 0.65; transform: scale(1.1); }
+
+    /* ───────── Final Card Corner Roses ───────── */
+    .final-card {
+      position: relative;
+      overflow: visible;
+    }
+
+    .final-card .corner-rose {
+      position: absolute;
+      width: 54px;
+      height: 54px;
+      opacity: 0.35;
+    }
+    .final-card .corner-rose.tl { top: -12px; left: -12px; transform: rotate(-30deg); }
+    .final-card .corner-rose.tr { top: -12px; right: -12px; transform: rotate(30deg); }
+    .final-card .corner-rose.bl { bottom: -12px; left: -12px; transform: rotate(-150deg); }
+    .final-card .corner-rose.br { bottom: -12px; right: -12px; transform: rotate(150deg); }
+
+    /* ───────── Heart trail behind final big heart ───────── */
+    .heart-cluster {
+      position: relative;
+      display: inline-block;
+    }
+
+    .heart-cluster .mini-heart {
+      position: absolute;
+      fill: var(--pink-deep);
+      opacity: 0.3;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .heart-cluster .mini-heart:nth-child(2) { animation-delay: 0.3s; }
+    .heart-cluster .mini-heart:nth-child(3) { animation-delay: 0.6s; }
+    .heart-cluster .mini-heart:nth-child(4) { animation-delay: 0.9s; }
+    .heart-cluster .mini-heart:nth-child(5) { animation-delay: 1.2s; }
+
+    /* ───────── Sparkle keyframe for scattered hearts ───────── */
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.08; transform: scale(1); }
+      50%      { opacity: 0.2; transform: scale(1.2); }
+    }
+
+    .card-heart-scatter {
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    /* ───────── Responsive ───────── */
+    @media (max-width: 600px) {
+      .card, .final-card { padding: 2rem 1.5rem; }
+      .question-text { font-size: 1.25rem; }
+      .final-card h2 { font-size: 1.6rem; }
+      .card .corner-rose, .final-card .corner-rose { width: 40px; height: 40px; }
+      .rose-garland svg { width: 28px; height: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating hearts background -->
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <!-- ───────── SVG Definitions (hidden) ───────── -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+    <!-- Heart shape -->
+    <symbol id="icon-heart" viewBox="0 0 24 24">
+      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+               2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+               C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5
+               c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </symbol>
+
+    <!-- Rose shape -->
+    <symbol id="icon-rose" viewBox="0 0 64 64">
+      <!-- Petals -->
+      <ellipse cx="32" cy="24" rx="10" ry="14" fill="#e05780" transform="rotate(-20 32 24)" opacity="0.8"/>
+      <ellipse cx="32" cy="24" rx="10" ry="14" fill="#fb6f92" transform="rotate(20 32 24)" opacity="0.7"/>
+      <ellipse cx="28" cy="22" rx="8"  ry="12" fill="#ff8fab" transform="rotate(-40 28 22)" opacity="0.75"/>
+      <ellipse cx="36" cy="22" rx="8"  ry="12" fill="#ff8fab" transform="rotate(40 36 22)" opacity="0.75"/>
+      <ellipse cx="32" cy="20" rx="6"  ry="9"  fill="#ffb3c6" opacity="0.9"/>
+      <circle  cx="32" cy="18" r="4"            fill="#fb6f92"/>
+      <!-- Stem -->
+      <path d="M32 34 Q32 50 30 58" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- Leaves -->
+      <path d="M31 44 Q24 40 20 44 Q24 46 31 44Z" fill="#6aab5e"/>
+      <path d="M32 50 Q38 46 42 50 Q38 52 32 50Z" fill="#6aab5e"/>
+    </symbol>
+
+    <!-- Arrow right -->
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24">
+      <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+    </symbol>
+  </svg>
+
+
+  <!-- ───────── Slideshow ───────── -->
+  <div class="slideshow" id="slideshow">
+
+    <!-- SLIDE 0 — Intro -->
+    <div class="slide active" data-slide="0">
+      <div class="intro-card">
+
+        <!-- Corner roses -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <div class="big-heart" style="margin-bottom:1rem">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="var(--rose)">
+            <use href="#icon-heart"/>
+          </svg>
+        </div>
+
+        <h1>Welcome to James' Valentines Quiz</h1>
+
+        <img class="intro-image" src="images/intro.png" alt="Us" />
+
+        <!-- Heart divider -->
+        <div class="heart-divider">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <button class="btn btn-primary" onclick="nextSlide()">
+          Start
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- SLIDE 1 — Question -->
+    <div class="slide" data-slide="1">
+      <div class="card">
+
+        <!-- Corner roses — all four corners -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <!-- Scattered heart accents -->
+        <svg class="card-heart-scatter" style="width:18px;height:18px;top:12%;right:8%;animation-delay:0s" viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:14px;height:14px;bottom:18%;left:6%;animation-delay:1s" viewBox="0 0 24 24" fill="var(--pink-mid)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:12px;height:12px;top:35%;left:4%;animation-delay:2s" viewBox="0 0 24 24" fill="var(--pink)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:16px;height:16px;bottom:10%;right:5%;animation-delay:0.5s" viewBox="0 0 24 24" fill="var(--rose)"><use href="#icon-heart"/></svg>
+
+        <p class="question-number">Question 1 of 5</p>
+
+        <!-- Heart divider -->
+        <div class="heart-divider">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <h2 class="question-text">Select the foods James doesn't like to eat</h2>
+
+        <img class="question-image" src="images/q1.png" alt="Us" />
+
+        <div class="answers" data-correct="mushrooms,tomatoes">
+          <div class="answer-option">
+            <input type="checkbox" name="q0" id="q0a" value="mushrooms" />
+            <label for="q0a">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Mushrooms
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="checkbox" name="q0" id="q0b" value="steak" />
+            <label for="q0b">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Steak
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="checkbox" name="q0" id="q0c" value="salmon" />
+            <label for="q0c">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Salmon
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="checkbox" name="q0" id="q0d" value="pickles" />
+            <label for="q0d">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Pickles
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="checkbox" name="q0" id="q0e" value="broccoli" />
+            <label for="q0e">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Broccoli
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="checkbox" name="q0" id="q0f" value="tomatoes" />
+            <label for="q0f">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Tomatoes
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="checkbox" name="q0" id="q0g" value="cauliflower" />
+            <label for="q0g">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Cauliflower
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="handleNext(this)">
+          Next
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
+        </button>
+        <div class="error-msg" id="error-q0">
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SLIDE 2 — Question 2 -->
+    <div class="slide" data-slide="2">
+      <div class="card">
+
+        <!-- Corner roses — all four corners -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <!-- Scattered heart accents -->
+        <svg class="card-heart-scatter" style="width:18px;height:18px;top:12%;right:8%;animation-delay:0s" viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:14px;height:14px;bottom:18%;left:6%;animation-delay:1s" viewBox="0 0 24 24" fill="var(--pink-mid)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:12px;height:12px;top:35%;left:4%;animation-delay:2s" viewBox="0 0 24 24" fill="var(--pink)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:16px;height:16px;bottom:10%;right:5%;animation-delay:0.5s" viewBox="0 0 24 24" fill="var(--rose)"><use href="#icon-heart"/></svg>
+
+        <p class="question-number">Question 2 of 5</p>
+
+        <!-- Heart divider -->
+        <div class="heart-divider">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <h2 class="question-text">How big is James' nob?</h2>
+
+        <img class="question-image" src="images/q2.png" alt="Us" />
+
+        <div class="answers" data-correct="kingkong">
+          <div class="answer-option">
+            <input type="radio" name="q1" id="q1a" value="tiny" />
+            <label for="q1a">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Tiny
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q1" id="q1b" value="notbad" />
+            <label for="q1b">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Not bad
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q1" id="q1c" value="aboveavg" />
+            <label for="q1c">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Bit above average
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q1" id="q1d" value="prettybig" />
+            <label for="q1d">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Pretty big
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q1" id="q1e" value="kingkong" />
+            <label for="q1e">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Some have compared it to King Kong's finger, although I think in a thumb war James would certainly have the upper hand.
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="handleNext(this)">
+          Next
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
+        </button>
+        <div class="error-msg" id="error-q1">
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SLIDE 3 — Question 3 -->
+    <div class="slide" data-slide="3">
+      <div class="card">
+
+        <!-- Corner roses — all four corners -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <!-- Scattered heart accents -->
+        <svg class="card-heart-scatter" style="width:18px;height:18px;top:12%;right:8%;animation-delay:0s" viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:14px;height:14px;bottom:18%;left:6%;animation-delay:1s" viewBox="0 0 24 24" fill="var(--pink-mid)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:12px;height:12px;top:35%;left:4%;animation-delay:2s" viewBox="0 0 24 24" fill="var(--pink)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:16px;height:16px;bottom:10%;right:5%;animation-delay:0.5s" viewBox="0 0 24 24" fill="var(--rose)"><use href="#icon-heart"/></svg>
+
+        <p class="question-number">Question 3 of 5</p>
+
+        <!-- Heart divider -->
+        <div class="heart-divider">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <h2 class="question-text">How many of James' jokes are funny?</h2>
+
+        <img class="question-image" src="images/q3.png" alt="Us" />
+
+        <div class="answers" data-correct="100%">
+          <div class="answer-option">
+            <input type="radio" name="q2" id="q2a" value="0%" />
+            <label for="q2a">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              0%
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q2" id="q2b" value="10%" />
+            <label for="q2b">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              10%
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q2" id="q2c" value="50%" />
+            <label for="q2c">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              50%
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q2" id="q2d" value="70%" />
+            <label for="q2d">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              70%
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q2" id="q2e" value="100%" />
+            <label for="q2e">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              100%
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="handleNext(this)">
+          Next
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
+        </button>
+        <div class="error-msg" id="error-q2">
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SLIDE 4 — Question 4 -->
+    <div class="slide" data-slide="4">
+      <div class="card">
+
+        <!-- Corner roses — all four corners -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <!-- Scattered heart accents -->
+        <svg class="card-heart-scatter" style="width:18px;height:18px;top:12%;right:8%;animation-delay:0s" viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:14px;height:14px;bottom:18%;left:6%;animation-delay:1s" viewBox="0 0 24 24" fill="var(--pink-mid)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:12px;height:12px;top:35%;left:4%;animation-delay:2s" viewBox="0 0 24 24" fill="var(--pink)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:16px;height:16px;bottom:10%;right:5%;animation-delay:0.5s" viewBox="0 0 24 24" fill="var(--rose)"><use href="#icon-heart"/></svg>
+
+        <p class="question-number">Question 4 of 5</p>
+
+        <!-- Heart divider -->
+        <div class="heart-divider">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <h2 class="question-text">On a scale of 1 to 10, how much do you love James?</h2>
+
+        <div class="answers" data-correct="100">
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3a" value="1" />
+            <label for="q3a">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              1
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3b" value="2" />
+            <label for="q3b">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              2
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3c" value="3" />
+            <label for="q3c">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              3
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3d" value="4" />
+            <label for="q3d">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              4
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3e" value="5" />
+            <label for="q3e">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              5
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3f" value="6" />
+            <label for="q3f">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              6
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3g" value="7" />
+            <label for="q3g">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              7
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3h" value="8" />
+            <label for="q3h">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              8
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3i" value="9" />
+            <label for="q3i">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              9
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3j" value="10" />
+            <label for="q3j">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              10
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q3" id="q3k" value="100" />
+            <label for="q3k">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              100
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="handleNext(this)">
+          Next
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
+        </button>
+        <div class="error-msg" id="error-q3">
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SLIDE 5 — Congratulations Interstitial -->
+    <div class="slide" data-slide="5">
+      <div class="intro-card">
+
+        <!-- Corner roses -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <div class="big-heart" style="margin-bottom:1rem">
+          <svg width="70" height="70" viewBox="0 0 24 24" fill="var(--rose)">
+            <use href="#icon-heart"/>
+          </svg>
+        </div>
+
+        <h1>Congratulations!</h1>
+
+        <!-- Heart divider -->
+        <div class="heart-divider">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <p style="font-size:1.1rem;line-height:1.6;color:var(--rose);margin-bottom:1.5rem;">
+          You have passed all the tests and have been selected for the final round of questioning. Please click continue to continue.
+        </p>
+
+        <button class="btn btn-primary" onclick="nextSlide()">
+          Continue
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- SLIDE 6 — Final Question -->
+    <div class="slide" data-slide="6">
+      <div class="card">
+
+        <!-- Corner roses — all four corners -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <!-- Scattered heart accents -->
+        <svg class="card-heart-scatter" style="width:18px;height:18px;top:12%;right:8%;animation-delay:0s" viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:14px;height:14px;bottom:18%;left:6%;animation-delay:1s" viewBox="0 0 24 24" fill="var(--pink-mid)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:12px;height:12px;top:35%;left:4%;animation-delay:2s" viewBox="0 0 24 24" fill="var(--pink)"><use href="#icon-heart"/></svg>
+        <svg class="card-heart-scatter" style="width:16px;height:16px;bottom:10%;right:5%;animation-delay:0.5s" viewBox="0 0 24 24" fill="var(--rose)"><use href="#icon-heart"/></svg>
+
+        <p class="question-number">Question 5 of 5</p>
+
+        <!-- Heart divider -->
+        <div class="heart-divider">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <h2 class="question-text">Will you be James' Valentine?</h2>
+
+        <div class="answers" data-correct="yes">
+          <div class="answer-option">
+            <input type="radio" name="q4" id="q4a" value="yes" />
+            <label for="q4a">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              Yes
+            </label>
+          </div>
+
+          <div class="answer-option">
+            <input type="radio" name="q4" id="q4b" value="no" />
+            <label for="q4b">
+              <span class="radio-heart">
+                <svg viewBox="0 0 24 24" fill="white"><use href="#icon-heart"/></svg>
+              </span>
+              No
+            </label>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" onclick="handleNext(this)">
+          Next
+          <svg viewBox="0 0 24 24"><use href="#icon-arrow-right"/></svg>
+        </button>
+        <div class="error-msg" id="error-q4">
+          <svg viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+          <span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SLIDE 7 — Final Message -->
+    <div class="slide" data-slide="7">
+      <div class="final-card">
+
+        <!-- Corner roses — all four corners -->
+        <svg class="corner-rose tl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose tr"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose bl"><use href="#icon-rose"/></svg>
+        <svg class="corner-rose br"><use href="#icon-rose"/></svg>
+
+        <!-- Rose garland -->
+        <div class="rose-garland">
+          <svg viewBox="0 0 64 64"><use href="#icon-rose"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 64 64"><use href="#icon-rose"/></svg>
+          <svg viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+          <svg viewBox="0 0 64 64"><use href="#icon-rose"/></svg>
+        </div>
+
+        <div class="big-heart">
+          <div class="heart-cluster">
+            <!-- Mini orbiting hearts -->
+            <svg class="mini-heart" style="width:20px;height:20px;top:-12px;left:-18px" viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+            <svg class="mini-heart" style="width:16px;height:16px;top:-8px;right:-20px" viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+            <svg class="mini-heart" style="width:14px;height:14px;bottom:0;left:-22px" viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+            <svg class="mini-heart" style="width:18px;height:18px;bottom:-6px;right:-16px" viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+            <svg class="mini-heart" style="width:12px;height:12px;top:50%;left:50%;margin-left:38px;margin-top:-6px" viewBox="0 0 24 24"><use href="#icon-heart"/></svg>
+            <!-- Main heart -->
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="var(--rose)">
+              <use href="#icon-heart"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Heart divider -->
+        <div class="heart-divider" style="margin:1rem 0">
+          <span class="divider-line"></span>
+          <svg viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+          <span class="divider-line"></span>
+        </div>
+
+        <h2>Lorem Ipsum Dolor Sit&nbsp;Amet</h2>
+        <p>
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+          quae ab illo inventore veritatis et quasi architecto beatae vitae
+          dicta sunt explicabo.
+        </p>
+
+        <!-- Bottom trailing hearts -->
+        <div style="margin-top:1.5rem;display:flex;justify-content:center;gap:6px;opacity:0.35">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--pink)"><use href="#icon-heart"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--pink-mid)"><use href="#icon-heart"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--pink-deep)"><use href="#icon-heart"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--pink-mid)"><use href="#icon-heart"/></svg>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--pink)"><use href="#icon-heart"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Shared progress dots -->
+  <div class="progress-dots" id="progressDots" style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;"></div>
+
+
+  <!-- ───────── Scripts ───────── -->
+  <script>
+    // ── Floating hearts (more!) ──
+    (function spawnHearts() {
+      const container = document.getElementById('heartsBg');
+      const colors = ['#fb6f92', '#ff8fab', '#ffb3c6', '#e05780', '#ffc2d1'];
+
+      for (let i = 0; i < 35; i++) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const size = 12 + Math.random() * 34;
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('width', size);
+        svg.setAttribute('height', size);
+        svg.classList.add('floating-heart');
+        svg.style.left = Math.random() * 100 + '%';
+        svg.style.animationDuration = 8 + Math.random() * 16 + 's';
+        svg.style.animationDelay = Math.random() * 14 + 's';
+        svg.innerHTML = `<path fill="${colors[i % colors.length]}"
+          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
+             2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09
+             C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5
+             c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>`;
+        container.appendChild(svg);
+      }
+    })();
+
+    // ── Floating roses ──
+    (function spawnRoses() {
+      const container = document.getElementById('heartsBg');
+      for (let i = 0; i < 8; i++) {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        const size = 28 + Math.random() * 30;
+        svg.setAttribute('viewBox', '0 0 64 64');
+        svg.setAttribute('width', size);
+        svg.setAttribute('height', size);
+        svg.classList.add('floating-rose');
+        svg.style.left = Math.random() * 100 + '%';
+        svg.style.animationDuration = 14 + Math.random() * 18 + 's';
+        svg.style.animationDelay = Math.random() * 16 + 's';
+        svg.innerHTML = `
+          <ellipse cx="32" cy="24" rx="10" ry="14" fill="#e05780" transform="rotate(-20 32 24)" opacity="0.8"/>
+          <ellipse cx="32" cy="24" rx="10" ry="14" fill="#fb6f92" transform="rotate(20 32 24)" opacity="0.7"/>
+          <ellipse cx="28" cy="22" rx="8" ry="12" fill="#ff8fab" transform="rotate(-40 28 22)" opacity="0.75"/>
+          <ellipse cx="36" cy="22" rx="8" ry="12" fill="#ff8fab" transform="rotate(40 36 22)" opacity="0.75"/>
+          <ellipse cx="32" cy="20" rx="6" ry="9" fill="#ffb3c6" opacity="0.9"/>
+          <circle cx="32" cy="18" r="4" fill="#fb6f92"/>
+          <path d="M32 34 Q32 50 30 58" stroke="#4a7c59" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M31 44 Q24 40 20 44 Q24 46 31 44Z" fill="#6aab5e"/>
+          <path d="M32 50 Q38 46 42 50 Q38 52 32 50Z" fill="#6aab5e"/>`;
+        container.appendChild(svg);
+      }
+    })();
+
+    // ── Slide navigation ──
+    let current = 0;
+    const slides = document.querySelectorAll('.slide');
+    const total  = slides.length;
+
+    // Track the furthest slide the user has unlocked
+    let maxReached = 0;
+
+    // Check if a question slide has the correct answer(s) selected
+    function slideAnswered(index) {
+      const slide = slides[index];
+      const answersDiv = slide.querySelector('.answers');
+      if (!answersDiv) return true; // not a question slide (intro/final)
+
+      const correctAttr = answersDiv.dataset.correct;
+      if (!correctAttr) {
+        // Fallback: just check if anything is selected
+        const inputs = answersDiv.querySelectorAll('input');
+        return Array.from(inputs).some(r => r.checked);
+      }
+
+      const correctSet = new Set(correctAttr.split(',').map(s => s.trim().toLowerCase()));
+      const checked = answersDiv.querySelectorAll('input:checked');
+      const checkedSet = new Set(Array.from(checked).map(c => c.value.toLowerCase()));
+
+      // Must match exactly
+      if (correctSet.size !== checkedSet.size) return false;
+      for (const val of correctSet) {
+        if (!checkedSet.has(val)) return false;
+      }
+      return true;
+    }
+
+    // Can we move to a given slide?
+    function canGoTo(target) {
+      if (target < 0 || target >= total) return false;
+      if (target <= current) return true; // always allow going back
+      // Going forward: every slide between current and target must be answered
+      for (let i = current; i < target; i++) {
+        if (!slideAnswered(i)) return false;
+      }
+      return true;
+    }
+
+    function goToSlide(target) {
+      if (target === current) return;
+      if (!canGoTo(target)) return;
+
+      const goingForward = target > current;
+      slides[current].classList.remove('active', 'from-prev');
+      current = target;
+      if (current > maxReached) maxReached = current;
+      slides[current].classList.remove('from-prev');
+      slides[current].classList.add('active');
+      if (!goingForward) {
+        slides[current].classList.add('from-prev');
+      }
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      updateDots();
+    }
+
+    function nextSlide() {
+      if (current >= total - 1) return;
+      if (!canGoTo(current + 1)) return;
+      goToSlide(current + 1);
+    }
+
+    // ── Funny wrong-answer messages ──
+    const wrongMessages = [
+      "You don't even love me",
+      "Try again Schnucki",
+      "Think harder my love",
+      "Even stinks knows this one",
+      "Du verstehst nur Bahnhof",
+      "You don't even care",
+      "You wouldn't love me if I was a worm",
+    ];
+    let lastMsgIndex = -1;
+
+    function getRandomWrongMsg() {
+      let idx;
+      do { idx = Math.floor(Math.random() * wrongMessages.length); } while (idx === lastMsgIndex);
+      lastMsgIndex = idx;
+      return wrongMessages[idx];
+    }
+
+    function handleNext(btn) {
+      const slide = slides[current];
+      const answersDiv = slide.querySelector('.answers');
+
+      // If not a question slide, or answers are correct, just go next
+      if (!answersDiv || slideAnswered(current)) {
+        // Hide any visible error
+        const err = slide.querySelector('.error-msg');
+        if (err) err.classList.remove('visible');
+        nextSlide();
+        return;
+      }
+
+      // Wrong answer! Show error
+      const card = slide.querySelector('.card');
+      const errorEl = slide.querySelector('.error-msg');
+
+      if (errorEl) {
+        const span = errorEl.querySelector('span');
+        span.textContent = getRandomWrongMsg();
+        errorEl.classList.remove('visible');
+        // Force reflow for re-triggering animation
+        void errorEl.offsetWidth;
+        errorEl.classList.add('visible');
+      }
+
+      // Shake the card
+      if (card) {
+        card.classList.remove('shake');
+        void card.offsetWidth;
+        card.classList.add('shake');
+        card.addEventListener('animationend', () => card.classList.remove('shake'), { once: true });
+      }
+    }
+
+    function prevSlide() {
+      if (current <= 0) return;
+      goToSlide(current - 1);
+    }
+
+    // ── Progress dots ──
+    const dotsContainer = document.getElementById('progressDots');
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      }
+      updateDots();
+    }
+
+    function updateDots() {
+      const dots = dotsContainer.querySelectorAll('.dot');
+      dots.forEach((dot, i) => {
+        dot.classList.remove('active', 'done', 'locked');
+        if (i === current) {
+          dot.classList.add('active');
+        } else if (i < current) {
+          dot.classList.add('done');
+        } else {
+          // Future dot: check if reachable
+          if (!canGoTo(i)) {
+            dot.classList.add('locked');
+          }
+        }
+      });
+    }
+
+    // Update dots when an answer is selected
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(r => {
+      r.addEventListener('change', updateDots);
+    });
+
+    buildDots();
+  </script>
+</body>
+</html>
