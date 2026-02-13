@@ -144,6 +144,34 @@
       animation: cardShake 0.5s ease;
     }
 
+    /* ───────── Confetti ───────── */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      top: -20px;
+      opacity: 0;
+      animation: confettiFall linear forwards;
+    }
+
+    @keyframes confettiFall {
+      0%   { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+      25%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(105vh) rotate(720deg) scale(0.5); }
+    }
+
+    @keyframes confettiSway {
+      0%, 100% { margin-left: 0; }
+      25%      { margin-left: 15px; }
+      75%      { margin-left: -15px; }
+    }
+
     /* ───────── Card ───────── */
     .card {
       background: rgba(255, 255, 255, 0.85);
@@ -1270,6 +1298,9 @@
   <div class="progress-dots" id="progressDots" style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;"></div>
 
 
+  <!-- Confetti container -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
   <!-- ───────── Scripts ───────── -->
   <script>
     // ── Floating hearts (more!) ──
@@ -1382,6 +1413,11 @@
       }
       window.scrollTo({ top: 0, behavior: 'instant' });
       updateDots();
+
+      // Trigger confetti on final slide
+      if (current === total - 1) {
+        launchConfetti();
+      }
     }
 
     function nextSlide() {
@@ -1447,6 +1483,55 @@
     function prevSlide() {
       if (current <= 0) return;
       goToSlide(current - 1);
+    }
+
+    // ── Valentine's confetti ──
+    function launchConfetti() {
+      const container = document.getElementById('confettiContainer');
+      container.innerHTML = '';
+      const shapes = ['heart', 'circle', 'rect'];
+      const colors = ['#fb6f92','#ff8fab','#ffb3c6','#e05780','#ffc2d1','#ff477e','#ff85a1','#f9bec7','#ff0a54','#ff5c8a'];
+
+      for (let i = 0; i < 120; i++) {
+        const piece = document.createElement('div');
+        piece.classList.add('confetti-piece');
+        const shape = shapes[Math.floor(Math.random() * shapes.length)];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = 8 + Math.random() * 10;
+        const left = Math.random() * 100;
+        const duration = 2.5 + Math.random() * 3;
+        const delay = Math.random() * 2.5;
+        const sway = -30 + Math.random() * 60;
+
+        piece.style.left = left + '%';
+        piece.style.animationDuration = duration + 's';
+        piece.style.animationDelay = delay + 's';
+
+        if (shape === 'heart') {
+          const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('viewBox', '0 0 24 24');
+          svg.setAttribute('width', size);
+          svg.setAttribute('height', size);
+          svg.innerHTML = `<path fill="${color}" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>`;
+          piece.appendChild(svg);
+        } else if (shape === 'circle') {
+          piece.style.width = size + 'px';
+          piece.style.height = size + 'px';
+          piece.style.borderRadius = '50%';
+          piece.style.background = color;
+        } else {
+          piece.style.width = size + 'px';
+          piece.style.height = size * 0.6 + 'px';
+          piece.style.borderRadius = '2px';
+          piece.style.background = color;
+        }
+
+        piece.style.animation += `, confettiSway ${1 + Math.random() * 2}s ease-in-out ${delay}s infinite`;
+        container.appendChild(piece);
+      }
+
+      // Clean up after confetti finishes
+      setTimeout(() => { container.innerHTML = ''; }, 7000);
     }
 
     // ── Progress dots ──
